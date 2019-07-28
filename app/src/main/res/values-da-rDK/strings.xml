@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">LeasingPartner</string>
+	<string name="car_price">Bilens pris</string>
+	<string name="fee">Afgift</string>
+	<string name="payout">Udbetaling</string>
+	<string name="calculate">Beregn pris</string>
+</resources>

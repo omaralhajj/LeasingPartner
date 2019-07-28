@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LeasingPartner</string>
+    <string name="car_price">Car price</string>
+    <string name="fee">Fee</string>
+    <string name="payout">Payout</string>
+    <string name="calculate">Calculate price</string>
+</resources>
