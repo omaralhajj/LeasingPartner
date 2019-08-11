@@ -4,11 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
-import android.widget.Button
 import android.widget.EditText;
 import android.widget.TextView
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     private lateinit var carPrice: EditText
@@ -59,15 +56,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun CalculatePrice() {
-        val textView = findViewById<TextView>(R.id.priceTextView)
-        var price: Double
+        val extraordinaryLeaseTV = findViewById<TextView>(R.id.extraordinaryTextView)
+        val monthlyLeaseTV = findViewById<TextView>(R.id.monthlyTextView)
+        val residualTV = findViewById<TextView>(R.id.residualTextView)
+
         val carPrice = carPrice.text.toString().toDouble()
         val fee = fee.text.toString().toDouble()
         val payout = payout.text.toString().toDouble()
-        val extraordinaryLease = MonthlyLease()
 
-        price = extraordinaryLease.Calculate(fee, payout, carPrice)
+        val extraordinaryLease = ExtraordinaryLease()
+        val monthlyLease = MonthlyLease()
 
-        textView.text = price.toString()
+        extraordinaryLeaseTV.text = extraordinaryLease.Calculate(carPrice, payout).toString()
+        monthlyLeaseTV.text = monthlyLease.Calculate(fee, payout, carPrice).toString()
+        residualTV.text = (carPrice * 7.5 * 0.8).toString()
     }
 }
