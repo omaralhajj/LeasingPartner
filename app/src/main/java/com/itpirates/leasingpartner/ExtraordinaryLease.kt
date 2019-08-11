@@ -1,11 +1,16 @@
 package com.itpirates.leasingpartner
 
 import kotlin.math.ceil
+import kotlin.math.floor
 
 class ExtraordinaryLease {
     fun Calculate(carPrice: Double, payout: Double): Double {
         val result = (LeasingCost(payout) - Profit(carPrice)) + FinalProfit(carPrice)
-        return ceil(result / 1000.0) * 1000.0
+        return if (result <= 0) {
+            floor(result / 1000.0) * 1000.0
+        } else {
+            ceil(result / 1000.0) * 1000.0
+        }
     }
 
     private fun LeasingCost(payout: Double): Double {
