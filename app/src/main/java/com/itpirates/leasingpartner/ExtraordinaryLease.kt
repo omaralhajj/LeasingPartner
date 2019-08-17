@@ -7,9 +7,9 @@ class ExtraordinaryLease {
     fun Calculate(carPrice: Double, payout: Double): Double {
         val result = (LeasingCost(payout) - Profit(carPrice)) + FinalProfit(carPrice)
         return if (result <= 0) {
-            floor(result / 1000.0) * 1000.0
+            floor(result)
         } else {
-            ceil(result / 1000.0) * 1000.0
+            ceil(result)
         }
     }
 
@@ -18,7 +18,7 @@ class ExtraordinaryLease {
     }
 
     private fun Profit(carPrice: Double): Double {
-        val g4 = 12000 // 'Ark1 (2)'G4 from the excel sheet
+        val g4 = 12000 // 'Ark1 (2)'G4
         val salePrice = carPrice + (g4 / 7.5)
         val salePricePrivate = salePrice * 1.25
         val profitInEuros = salePricePrivate - carPrice

@@ -5,31 +5,39 @@ import kotlin.math.ceil
 import kotlin.math.floor
 
 class MonthlyLease {
+    var fee = 0.0
+    var payment = 0.0
+    var carPrice = 0.0
+
     fun Calculate(fee: Double, payment: Double, carPrice: Double): Double {
-        return MonthlyPayments(fee, payment, carPrice)
+        this.fee = fee
+        this.payment = payment
+        this.carPrice = carPrice
+        return MonthlyPayments()
+    }
+
+    // 'Indtastning og beregning-AG'!D46
+    fun calculateInvestment(): Double {
+        val price = ceil(((carPrice * 7.5) + 12000 + 8000) / 1000.0) * 1000.0
+        return price + 1180 + CalculateTax(fee) - payment
     }
 
     // 'beregning købekontrakt'!B46
-    private fun MonthlyPayments(fee: Double, payment: Double, carPrice: Double): Double {
-        // 'Indtastning og beregning-AG'!D46
-        val price = ceil((carPrice * 7.5) / 1000.0) * 1000.0
-        val investment = price + 1180 + CalculateTax(fee) - payment + 12000 + 7500
-
+    private fun MonthlyPayments(): Double {
         // 'Indtastning og beregning-AG'!D57
         val residualValue = carPrice * 7.5 * 0.8
 
         //FinanceLib.pmt er basically excel-funktionen YDELSE()
-        var pmt = FinanceLib.pmt((0.0375/12), 12.0, investment, -residualValue, false)
+        var pmt = FinanceLib.pmt((0.0775/12), 12.0, calculateInvestment(), -residualValue, false)
 
-        if (pmt > 0) {
-            pmt = ceil(pmt)
+        val administrationfee = 12500 / 12
+        var result = (pmt * -1) * 1.25 + administrationfee * 1.25
+        result = if (result > 0) {
+            ceil(result / 10) * 10
         } else {
-            pmt = floor(pmt)
+            floor(result / 10) * 10
         }
-
-        val administrationfee = (6995 + 8000 + (price * 0.001 * 12)) / 12
-
-        return ceil(((pmt * -1) * 1.25 + administrationfee * 1.25) / 100.0) * 100.0
+        return result
     }
 
     // 'SKAT'!E36
