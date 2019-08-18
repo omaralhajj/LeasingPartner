@@ -1,5 +1,4 @@
 package com.itpirates.leasingpartner
-import android.util.Log
 import org.apache.poi.ss.formula.functions.FinanceLib
 import kotlin.math.ceil
 import kotlin.math.floor
@@ -30,8 +29,8 @@ class MonthlyLease {
         //FinanceLib.pmt er basically excel-funktionen YDELSE()
         var pmt = FinanceLib.pmt((0.0775/12), 12.0, calculateInvestment(), -residualValue, false)
 
-        val administrationfee = 12500 / 12
-        var result = (pmt * -1) * 1.25 + administrationfee * 1.25
+        val administrationFee = 12500 / 12
+        var result = (pmt * -1) * 1.25 + administrationFee * 1.25
         result = if (result > 0) {
             ceil(result / 10) * 10
         } else {
